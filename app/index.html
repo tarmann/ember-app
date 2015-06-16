@@ -3,14 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title>Ember App</title>
+
+  <style>
+  .cover {
+    display: block;
+    float: left;
+    width: 10vh;
+    height: 10vh;
+    object-fit: cover;
+  }
+  </style>
+
 </head>
 <body>
-
-<script type="text/x-handlebars">
-  <h1>Collection: {{user}}</h1>
-
-  {{outlet}}
-</script>
 
 <script type="text/x-handlebars" data-template-name="user/error">
   USER ERROR
@@ -21,10 +26,18 @@
 
   <button {{action 'query'}}>Search</button>
 
+  <div>
   {{#each model}}
-    <span><img class="game-thumb" src="{{thumbnail}}" /></span>
+    <div class="cover"><img class="game-thumb" src="{{thumbnail}}" /></div>
   {{/each}}
+  </div>
+</script>
 
+<script type="text/x-handlebars" data-template-name="index">
+  <h1>Got ot user/:user</h1>
+
+  <p>Name: {{name}}</p>
+  <p>{{input value=name}}</p>
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
