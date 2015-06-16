@@ -23,29 +23,40 @@ App.UserCollectionRoute = Ember.Route.extend({
 
 App.CollectionModel = DS.Model.extend({
   name        : DS.attr(),
-  rating      : DS.attr(),
   minPlayers  : DS.attr(),
-  maxPlayers  : DS.attr()
-});
-
-// UserCollectionSerializer
-
-App.CollectionSerializer = DS.RESTSerializer.extend({
-  primaryKey: 'gameId',
-  serialize: function(snapshot, options){
-    console.log(snapshot);
-    return { collection: snapshot[0] };
-  }
+  maxPlayers  : DS.attr(),
+  isExpansion : DS.attr(),
+  owned       : DS.attr(),
+  rating      : DS.attr()
 });
 
 // UserCollectionAdapter
 
 App.CollectionAdapter = DS.RESTAdapter.extend({
-  host: 'http://bgg-json.azurewebsites.net',
+  // host: 'http://bgg-json.azurewebsites.net',
+  host: 'http://private-0f6a1-ember37.apiary-mock.com',
   pathForType: function(type) { return 'collection'; }
 });
 
+// UserCollectionSerializer
+
+App.CollectionSerializer = DS.RESTSerializer.extend({
+  primaryKey: 'gameId'
+  , serialize: function(snapshot, options){
+    console.log('snapshot', snapshot);
+    return { collections: snapshot };
+  }
+});
+
 // Controllers
+
+App.IndexController = Ember.Controller.extend({
+  actions: {
+    go: function() {
+      this.transitionToRoute('/user/' + this.user)
+    }
+  }
+});
 
 App.UserCollectionController = Ember.Controller.extend({
   user: '',

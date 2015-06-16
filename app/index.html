@@ -7,10 +7,16 @@
   <style>
   .cover {
     display: block;
+    z-index: 0;
+    position: relative;
     float: left;
     width: 10vh;
-    height: 10vh;
+    height: 15vh;
     object-fit: cover;
+  }
+
+  .cover:hover img {
+    z-index: 100;
   }
   </style>
 
@@ -21,10 +27,12 @@
   USER ERROR
 </script>
 
-<script type="text/x-handlebars" data-template-name="user/collection">
-  {{input type="text" value=user}}
+<script type="text/x-handlebars" data-template-name="user/loading">
+  LOADING...
+</script>
 
-  <button {{action 'query'}}>Search</button>
+<script type="text/x-handlebars" data-template-name="user/collection">
+  <a href="index.html">Back</a>
 
   <div>
   {{#each model}}
@@ -34,10 +42,12 @@
 </script>
 
 <script type="text/x-handlebars" data-template-name="index">
-  <h1>Got ot user/:user</h1>
+  <h1>Ember App</h1>
 
-  <p>Name: {{name}}</p>
-  <p>{{input value=name}}</p>
+  <form>
+    {{input value=user}}
+    <button {{action 'go'}}>Go</button>
+  </form>
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
