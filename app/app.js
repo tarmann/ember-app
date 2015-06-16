@@ -14,14 +14,14 @@ App.Router.reopen({
 
 App.UserCollectionRoute = Ember.Route.extend({
   model: function(params) {
-    // return this.store.find('UserCollection', params.user);
+    // return this.store.find('collection', params.user);
     return $.getJSON("http://bgg-json.azurewebsites.net/collection/" + params.user);
   }
 });
 
 // UserCollectionModel
 
-App.UserCollectionModel = DS.Model.extend({
+App.CollectionModel = DS.Model.extend({
   name        : DS.attr(),
   rating      : DS.attr(),
   minPlayers  : DS.attr(),
@@ -30,20 +30,19 @@ App.UserCollectionModel = DS.Model.extend({
 
 // UserCollectionSerializer
 
-App.UserCollectionSerializer = DS.RESTSerializer.extend({
+App.CollectionSerializer = DS.RESTSerializer.extend({
   primaryKey: 'gameId',
   serialize: function(snapshot, options){
-    return { collection: snapshot };
+    console.log(snapshot);
+    return { collection: snapshot[0] };
   }
 });
 
 // UserCollectionAdapter
 
-App.UserCollectionAdapter = DS.RESTAdapter.extend({
+App.CollectionAdapter = DS.RESTAdapter.extend({
   host: 'http://bgg-json.azurewebsites.net',
-  pathForType: function(type) {
-    return 'collection';
-  }
+  pathForType: function(type) { return 'collection'; }
 });
 
 // Controllers
@@ -53,8 +52,9 @@ App.UserCollectionController = Ember.Controller.extend({
 
   actions: {
     query: function() {
-      console.log(this.model);
-      this.store.find('UserCollection', this.user);
+      this.store.find('collection', this.user).then(function(data){
+        console.log(data);
+      });
     }
   }
 });

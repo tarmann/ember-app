@@ -19,19 +19,19 @@
 <script type="text/x-handlebars" data-template-name="user/collection">
   {{input type="text" value=user}}
 
+  <button {{action 'query'}}>Search</button>
 
   {{#each model}}
-    <p><img class="game-thumb" src="{{thumbnail}}" /></p>
+    <span><img class="game-thumb" src="{{thumbnail}}" /></span>
   {{/each}}
 
-  <button {{action 'query'}}>Search</button>
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/ember.js/1.12.1/ember.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/ember.js/1.12.1/ember-template-compiler.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/ember-data.js/1.0.0-beta.19/ember-data.min.js"></script>
-<script src="src/app.js"></script>
+<script src="app.js"></script>
 
 </body>
 </html>
