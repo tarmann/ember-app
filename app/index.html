@@ -43,21 +43,44 @@
   <p>Username: {{username}} <button {{action 'sayHi'}}>say hi!</button></p>
 </script>
 
+<script type="text/x-handlebars" id="components/timer">
+  <p>Username: {{username}} <button {{action 'sayHi'}}>say hi!</button></p>
+</script>
+
+<script type="text/x-handlebars" data-template-name="timer">
+  <h1>Timer</h1>
+
+  {{#each model}}
+    <p>Timer. {{seconds}}</p>
+  {{/each}}
+</script>
+
 <script type="text/x-handlebars" data-template-name="index">
   <h1>Ember App</h1>
 
+  <a href="#/timer">Timers</a>
+
+  <hr>
+
   {{user-profile username=user}}
+
+  <hr>
 
   <form>
     {{input value=user}}
     <button {{action 'go'}}>Go</button>
+    <button {{action 'query'}}>query</button>
   </form>
+
+  <hr>
+
+  {{timer}}
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/ember.js/1.12.1/ember.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/ember.js/1.12.1/ember-template-compiler.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/ember-data.js/1.0.0-beta.19/ember-data.min.js"></script>
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../bower_components/ember/ember-template-compiler.js"></script>
+<script src="../bower_components/ember/ember.js"></script>
+<script src="../bower_components/ember-data/ember-data.js"></script>
 <script src="app.js"></script>
 
 </body>
