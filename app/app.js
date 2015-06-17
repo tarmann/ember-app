@@ -69,3 +69,13 @@ App.UserCollectionController = Ember.Controller.extend({
     }
   }
 });
+
+// Component
+
+App.UserProfileComponent = Ember.Component.extend({
+  actions: {
+    sayHi: function() {
+      alert('Hello ' + this.username);
+    }
+  }
+});

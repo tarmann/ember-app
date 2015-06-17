@@ -3,23 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <title>Ember App</title>
-
   <style>
-  .cover {
-    display: block;
-    z-index: 0;
-    position: relative;
-    float: left;
-    width: 10vh;
-    height: 15vh;
-    object-fit: cover;
-  }
+    .cover {
+      display: block;
+      z-index: 0;
+      position: relative;
+      float: left;
+      width: 10vh;
+      height: 15vh;
+      object-fit: cover;
+    }
 
-  .cover:hover img {
-    z-index: 100;
-  }
+    .cover:hover img {
+      z-index: 100;
+    }
   </style>
-
 </head>
 <body>
 
@@ -41,8 +39,14 @@
   </div>
 </script>
 
+<script type="text/x-handlebars" id="components/user-profile">
+  <p>Username: {{username}} <button {{action 'sayHi'}}>say hi!</button></p>
+</script>
+
 <script type="text/x-handlebars" data-template-name="index">
   <h1>Ember App</h1>
+
+  {{user-profile username=user}}
 
   <form>
     {{input value=user}}
