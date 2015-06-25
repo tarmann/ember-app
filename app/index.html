@@ -34,7 +34,7 @@
 
   <div>
   {{#each model}}
-    <div class="cover"><img class="game-thumb" src="{{thumbnail}}" /></div>
+    <div class="cover">{{name}}<img class="game-thumb" {{bind-attra src=thumbnail}} /></div>
   {{/each}}
   </div>
 </script>
@@ -47,23 +47,11 @@
   <p>Username: {{username}} <button {{action 'sayHi'}}>say hi!</button></p>
 </script>
 
-<script type="text/x-handlebars" data-template-name="timer">
-  <h1>Timer</h1>
-
-  {{#each model}}
-    <p>Timer. {{seconds}}</p>
-  {{/each}}
-</script>
-
 <script type="text/x-handlebars" data-template-name="index">
   <h1>Ember App</h1>
 
-  <a href="#/timer">Timers</a>
-
   <hr>
-
-  {{user-profile username=user}}
-
+    {{user-profile username=user}}
   <hr>
 
   <form>
@@ -77,10 +65,13 @@
   {{timer}}
 </script>
 
-<script src="../bower_components/jquery/dist/jquery.min.js"></script>
-<script src="../bower_components/ember/ember-template-compiler.js"></script>
-<script src="../bower_components/ember/ember.js"></script>
-<script src="../bower_components/ember-data/ember-data.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="http://builds.emberjs.com/tags/v1.10.1/ember-template-compiler.js"></script>
+<script src="http://builds.emberjs.com/tags/v1.10.1/ember.min.js"></script>
+
+<!-- <script src="http://builds.emberjs.com/tags/v1.0.0-beta.19.2/ember-data.min.js"></script> -->
+<script src="http://builds.emberjs.com/tags/1.13.0/ember-data.min.js"></script>
+
 <script src="app.js"></script>
 
 </body>
