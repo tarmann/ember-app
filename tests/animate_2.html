@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ember Animate</title>
+
+  <style>
+  .simple-timer {
+    margin: 0px auto;
+    width: 200px;
+    height: 200px;
+    display: block;
+    overflow: hidden;
+    background: #ccc;
+  }
+
+  .simple-timer > div > div {
+    font-size: 145px;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    display: block;
+    padding: 3px;
+    width: 200px;
+    height: 200px;
+    text-align: right;
+  }
+
+  @-webkit-keyframes slide-down {
+    from { -webkit-transform: translateY(-50%); }
+    to { -webkit-transform: translateY(0); }
+  }
+
+  .animating > div {
+    -webkit-animation: slide-down 750ms;
+  }
+  </style>
+</head>
+<body>
+
+<script type="text/x-handlebars" data-template-name="index">
+  <h1>Ember Animate: Timer</h1>
+  {{simple-timer value=timer}}
+</script>
+
+<script type="text/x-handlebars" id="components/simple-timer">
+  <div>
+    <div>{{nextValue}}</div>
+    <div>{{currentValue}}</div>
+  </div>
+</script>
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="http://builds.emberjs.com/tags/v1.10.1/ember-template-compiler.js"></script>
+<script src="http://builds.emberjs.com/tags/v1.10.1/ember.min.js"></script>
+
+<script>
+window.App = Ember.Application.create();
+
+App.IndexController = Ember.Controller.extend({
+  nextValue: 1,
+  tick: function(){
+    setInterval(function(){
+      this.incrementProperty('timer');
+    }.bind(this), 1000);
+  }.on('init')
+});
+
+App.SimpleTimerComponent = Ember.Component.extend({
+  classNames: ['simple-timer'],
+  classNameBindings: ['animating'],
+
+  didInsertElement: function(){
+    this.animationEnabled = true;
+  },
+
+  value: function(key, value) {
+    if (arguments.length > 1) {
+      if (this.animationEnabled) {
+        this.set('nextValue', value);
+        this.triggerAnimation();
+      } else {
+        this.set('currentValue', value);
+      }
+    }
+    return null;
+  }.property(),
+
+  triggerAnimation: function(val){
+    this.set('animating', true);
+    return this.$('div:first').one('webkitAnimationEnd', (function(_this) {
+      return function() {
+        _this.set('currentValue', _this.get('nextValue'));
+        return _this.set('animating', false);
+      };
+    })(this));
+  }.on('didInsertElement')
+});
+
+</script>
+
+</body>
+</html>

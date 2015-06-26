@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ember Animate</title>
+
+  <style>
+  .crazy-numbers {
+    width: 130px;
+    display: inline-block;
+    border: solid 1px #ccc;
+  }
+
+  .crazy-number {
+    display:inline-block;
+    padding: 3px;
+    background: #ccc;
+    width: 30px;
+    text-align: center;
+    transition: all .5s;
+    cursor: pointer;
+  }
+
+  /*.is-left,*/
+  .is-left {
+    transform: translateX(100px);
+  }
+  </style>
+</head>
+<body>
+
+<script type="text/x-handlebars" data-template-name="index">
+  <h1>Ember Animate</h1>
+  {{crazy-numbers value=value1 output=value2}}
+  {{crazy-numbers value=value2 output=value3}}
+  {{crazy-numbers value=value3 output=value4}}
+  {{crazy-numbers value=value4 output=value5}}
+  {{crazy-numbers value=value5 output=value5}}
+</script>
+
+<script type="text/x-handlebars" id="components/crazy-numbers">
+  <div class="crazy-number" {{action "start" on="click"}}>{{value}}</div>
+</script>
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="http://builds.emberjs.com/tags/v1.10.1/ember-template-compiler.js"></script>
+<script src="http://builds.emberjs.com/tags/v1.10.1/ember.min.js"></script>
+
+<script>
+window.App = Ember.Application.create({
+});
+
+App.IndexController = Ember.Controller.extend({
+  crazyNumber: 1
+});
+
+App.CrazyNumbersComponent = Ember.Component.extend({
+  // component settings
+  classNames: ['crazy-numbers'],
+  // attributes
+  _pulse: 1,
+  value: 1,
+  output: 1,
+  // actions
+  actions: {
+    start: function(){
+      this.$('.crazy-number').addClass('is-left');
+    }
+  },
+  // methods
+  didInsertElement: function(){
+    var self = this;
+    this.$('.crazy-number').on('transitionend', function(){
+      $(this).toggleClass('is-left');
+      self.pulse();
+    });
+  },
+  triggerAnimation: function(){
+    if(!this.value){
+      console.log('triggerAnimation');
+      this.$('.crazy-number').addClass('is-left');
+    }
+  }.observes('value'),
+  pulse: function(){
+    this.set('_pulse', this._pulse + 1);
+  },
+  updateValue: function(val){
+    if(this._pulse / 2 !== parseInt(this._pulse / 2)){
+      this.set('value', this.value + 1);
+    } else {
+      this.set('output', this.value );
+    }
+  }.observes('_pulse')
+});
+
+</script>
+
+</body>
+</html>

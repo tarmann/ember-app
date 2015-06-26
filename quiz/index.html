@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ember Quiz</title>
+  <link rel="stylesheet" href="styles/app.css">
+</head>
+<body>
+
+<script type="text/x-handlebars" data-template-name="application">
+  <header>
+    <h1>Quiz</h1>
+  </header>
+  {{outlet}}
+  <footer>
+    <hr>
+  </footer>
+</script>
+
+<script type="text/x-handlebars" data-template-name="questions">
+  <h1>Questions</h1>
+
+  {{#each model}}
+    <h2>{{name}}</h2>
+  {{/each}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="question">
+  <div {{bind-attr style=fillStyle}}>
+    <h1>{{model.name}}</h1>
+
+    <div class="answers">
+    {{#each model.answers}}
+    <div>
+      <label>{{input type="radio" name="answer" value=value}} {{name}}</label>
+    </div>
+    {{/each}}
+    </div>
+  </div>
+</script>
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="http://builds.emberjs.com/release/ember.min.js"></script>
+<script src="http://builds.emberjs.com/release/ember-template-compiler.js"></script>
+<script src="http://builds.emberjs.com/release/ember-data.min.js"></script>
+
+<script src="fixtures.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
