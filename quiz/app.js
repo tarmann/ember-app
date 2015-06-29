@@ -32,7 +32,18 @@ App.QuestionsController = Ember.Controller.extend({
 });
 
 App.QuestionController = Ember.Controller.extend({
+  prevQuestion: function(){
+    var questionId = parseInt(this.get('model.id')) - 1;
+    return '#/question/'+ questionId;
+  }.property('model.id'),
+  nextQuestion: function(){
+    var questionId = parseInt(this.get('model.id')) + 1;
+    return '#/question/'+ questionId;
+  }.property('model.id')
+});
+
+App.QuestionViewerComponent = Ember.Component.extend({
   fillStyle: function(){
-    return 'background-color:'+this.get('model.description');
-  }.property('model.description')
+    return 'background-color:'+this.get('question.description');
+  }.property('question.description')
 });

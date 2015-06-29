@@ -11,7 +11,9 @@
   <header>
     <h1>Quiz</h1>
   </header>
+
   {{outlet}}
+
   <footer>
     <hr>
   </footer>
@@ -25,18 +27,25 @@
   {{/each}}
 </script>
 
-<script type="text/x-handlebars" data-template-name="question">
+<script type="text/x-handlebars" data-template-name="components/question-viewer">
   <div {{bind-attr style=fillStyle}}>
-    <h1>{{model.name}}</h1>
+    <h1>{{question.name}}</h1>
 
     <div class="answers">
-    {{#each model.answers}}
+    {{#each question.answers}}
     <div>
       <label>{{input type="radio" name="answer" value=value}} {{name}}</label>
     </div>
     {{/each}}
     </div>
   </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="question">
+  {{question-viewer question=model}}
+
+  <a {{bind-attr href=prevQuestion}}>Previous</a>
+  <a {{bind-attr href=nextQuestion}}>Next</a>
 </script>
 
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
