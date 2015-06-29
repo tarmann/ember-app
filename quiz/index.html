@@ -27,6 +27,18 @@
   {{/each}}
 </script>
 
+<script type="text/x-handlebars" data-template-name="components/question-nav">
+  {{#if prevQuestionLink}}
+  <a {{bind-attr href=prevQuestionLink}}>Previous</a>
+  {{/if}}
+
+  {{currentQuestion}} out of {{totalQuestions}}
+
+  {{#if nextQuestionLink}}
+  <a {{bind-attr href=nextQuestionLink}}>Next</a>
+  {{/if}}
+</script>
+
 <script type="text/x-handlebars" data-template-name="components/question-viewer">
   <div {{bind-attr style=fillStyle}}>
     <h1>{{question.name}}</h1>
@@ -45,16 +57,7 @@
 
 <script type="text/x-handlebars" data-template-name="question">
   {{question-viewer question=model onAnswer="saveAnswer"}}
-
-  {{#if prevQuestionLink}}
-  <a {{bind-attr href=prevQuestionLink}}>Previous</a>
-  {{/if}}
-
-  {{currentQuestion}} out of {{totalQuestions}}
-
-  {{#if nextQuestionLink}}
-  <a {{bind-attr href=nextQuestionLink}}>Next</a>
-  {{/if}}
+  {{question-nav model=model questions=questions}}
 </script>
 
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>

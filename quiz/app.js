@@ -43,6 +43,17 @@ App.QuestionModel = DS.Model.extend();
 App.QuestionsController = Ember.ArrayController.extend();
 
 App.QuestionController = Ember.Controller.extend({
+  actions: {
+    saveAnswer: function(weight){
+      console.log({ id: this.get('model.id'), weight: weight });
+    }
+  }
+});
+
+// COMPONENTS
+// =====================================================================
+
+App.QuestionNavComponent = Ember.Component.extend({
   totalQuestions: function(){
     var questions = this.get('questions');
     return questions.length;
@@ -59,16 +70,8 @@ App.QuestionController = Ember.Controller.extend({
   }.property('model.id'),
   nextQuestionLink: function(){
     return this.questionLink(+1);
-  }.property('model.id'),
-  actions: {
-    saveAnswer: function(weight){
-      console.log({ id: this.get('model.id'), weight: weight });
-    }
-  }
+  }.property('model.id')
 });
-
-// COMPONENTS
-// =====================================================================
 
 App.QuestionViewerComponent = Ember.Component.extend({
   actions: {
